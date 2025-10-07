@@ -57,6 +57,7 @@ async def main():
 
 if __name__ == "__main__":
     import asyncio
+    # This is needed to run asyncio in a Jupyter notebook/interactive environment
     import nest_asyncio
     nest_asyncio.apply()
 
