@@ -14,3 +14,9 @@ wheels/
 
 # Secrets
 .env
+
+# Logs
+logs/*
+
+# Playwright
+.playwright-mcp
