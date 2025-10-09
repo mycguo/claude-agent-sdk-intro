@@ -168,6 +168,8 @@ def parse_and_print_message(
                 f"Compaction completed \nPre-compaction tokens: {message.data["compact_metadata"]["pre_tokens"]} \nTrigger: {message.data["compact_metadata"]["trigger"]}",
                 console
                 )
+        else:
+            print_rich_message("system", json.dumps(message.data, indent=2), console)
     elif isinstance(message, AssistantMessage):
         for block in message.content:
             if isinstance(block, TextBlock):
