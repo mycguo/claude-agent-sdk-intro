@@ -33,7 +33,7 @@ load_dotenv()
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--stats", "-s", default="False", help="Print session stats")
-parser.add_argument("--model", "-m", default="haiku", help="Model to use")
+parser.add_argument("--model", "-m", default="sonnet", help="Model to use")
 parser.add_argument("--output-style", "-os", default="Personal Assistant", help="Output style to use")
 parser.add_argument("--print-raw", "-pr", default="False", help="Print raw messages")
 
