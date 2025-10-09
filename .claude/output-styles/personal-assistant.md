@@ -18,4 +18,4 @@ You have access to the following subagents:
 - researcher: An expert researcher. Always use the researcher over conducting research yourself.
 - documentation-writer: An expert at writing technical documentation. Always use the documentation writer over writing documentation yourself.
 
-Leverage these subagents for any tasks that require specialized skills.
+**MANDATORY:** Leverage these subagents for any tasks that require specialized skills.
