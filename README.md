@@ -16,18 +16,21 @@ Before starting, make sure you have:
 
 - **Python 3.13+** installed on your system
 - **uv** installed [instructions](https://docs.astral.sh/uv/getting-started/installation/)
-- **Anthropic API key** (get one at [console.anthropic.com](https://console.anthropic.com))
 - **Claude Code** installed
 `npm install -g @anthropic-ai/claude-code`
 - **Chrome browser** (required for Modules 5-6 for Playwright MCP integration)
 - **Node.js** (required for Modules 5-6 for Playwright MCP integration)
+
+Optional (see Step 3 below):
+You can either use an Anthropic API key or authenticate with Claude Code. If authenticating with Claude Code, you don't need to set an API key.
+- **Anthropic API key** (get one at [console.anthropic.com](https://console.anthropic.com))
 
 ## Quick Start
 
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/kenneth-liao/claude-agent-sdk-intro
 cd claude-agent-sdk-intro
 ```
 
@@ -39,7 +42,9 @@ Create a virtual environment and install dependencies:
 uv sync
 ```
 
-### 3. Configure API Key
+### 3. Configure API Key (Optional)
+
+If you are using an Anthropic API key (see prerequisites above),
 
 Create a `.env` file in the project root:
 
