@@ -10,7 +10,7 @@
           },
           {
             "type": "command",
-            "command": "uv run /Users/kennethliao/projects/claude-agent-sdk-intro/.claude/hooks/log_agent_actions.py"
+            "command": "uv run .claude/hooks/log_agent_actions.py"
           }
         ]
       }
