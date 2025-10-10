@@ -1,6 +1,10 @@
 # Claude Agent SDK: Step-by-Step Tutorial
 
-Learn to build AI agents with Claude from scratch through practical, hands-on modules. Everything you need to go from basic queries to building sophisticated multi-agent systems.
+## Watch the Video!
+
+[![image](./thumbnail.png)](https://youtu.be/gP5iZ6DCrUI)
+
+Claude Code is probably the most impressive and most capable AI agent that you know. If only you could leverage it to help you with anything and everything... Well now you can! The Claude Agent SDK is a high-level framework for building custom AI Agent systems using Claude Code as the core agent.
 
 ## What You'll Learn
 
