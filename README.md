@@ -52,7 +52,53 @@ Create a `.env` file in the project root:
 ANTHROPIC_API_KEY=your_api_key_here
 ```
 
-### 4. Run Your First Module
+### 4. Configure Local Settings
+
+**Important:** The `.claude/settings.json` file contains system-specific file paths that need to be updated for your local environment.
+
+Edit `.claude/settings.json` and update the sound file paths to match your system. You may also have to update the uv run command path to the absolute path to the python file.
+
+```json
+{
+  "outputStyle": "Personal Assistant",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Funk.aiff"
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/log_agent_actions.py"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Purr.aiff"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**For macOS users:** The default paths should work as-is.
+
+**For Linux/Windows users:** Replace the `afplay` commands with appropriate alternatives:
+- **Linux:** Use `aplay`, `paplay`, or `play` (from sox)
+- **Windows:** Use `powershell -c (New-Object Media.SoundPlayer "C:\Windows\Media\notify.wav").PlaySync()`
+
+Or simply remove the sound commands if you don't want audio notifications.
+
+### 5. Run Your First Module
 
 ```bash
 python 0_querying.py
@@ -155,6 +201,8 @@ claude-agent-sdk-intro/
 **API errors:** Verify your `ANTHROPIC_API_KEY` is set correctly in `.env`
 
 **Module 5-6 not working:** Ensure Node.js and Chrome are installed for Playwright
+
+**Sound/notification errors:** Update the file paths in `.claude/settings.json` to match your system's sound files, or remove the sound commands if not needed
 
 ## Next Steps
 
