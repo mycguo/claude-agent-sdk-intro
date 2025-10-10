@@ -25,7 +25,9 @@ async def main():
             'Edit',
             'MultiEdit',
             'Grep',
-            'Glob'
+            'Glob',
+            # Notice that you MUST allow MCP tools otherwise they will not be available by default.
+            # 'mcp__Playwright__browser_navigate'
         ],
         permission_mode="acceptEdits",
         setting_sources=["project"],
