@@ -46,7 +46,7 @@ def get_claude_options(model: str):
     """Configure Claude agent options with subagents."""
     return ClaudeAgentOptions(
         model=model,
-        permission_mode="acceptEdits",
+        permission_mode="bypassPermissions",  # Bypass all permission prompts for MCP tools
         setting_sources=["project"],
         allowed_tools=[
             'Read',
@@ -178,6 +178,12 @@ def get_claude_options(model: str):
                 "args": [
                     "-y",
                     "@playwright/mcp@latest"
+                ]
+            },
+            "chrome-devtools": {
+                "command": "npx",
+                "args": [
+                    "chrome-devtools-mcp@latest"
                 ]
             }
         }
