@@ -13,10 +13,18 @@ This is a Streamlit app version of the subagents example.
 
 import streamlit as st
 import asyncio
+import logging
 from claude_agent_sdk import ClaudeSDKClient, ClaudeAgentOptions, AgentDefinition
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Configure logging to console
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # Page configuration
 st.set_page_config(
@@ -129,7 +137,7 @@ def get_claude_options(model: str):
             ),
             "events_agent": AgentDefinition(
                 description="You are gathering incoming AI events in bay area. Asking for the input of how many days you want to check, search for sources from https://luma.com/sf, Meetup, eventbrite, startupgrind, Y combinator, 500 startups, Andreessen Horowitz (a16z), Stanford Events, Berkeley Events, LinkedIn Events, Silicon Valley Forum, Galvanize, StrictlyVC, Bay Area Tech Events, cerebralvalley.ai/events , you must include RSVP URL.",
-                prompt="You are searching for AI events in the next few days. Ask for how many days in advance. Gather the events, make sure to include short description, location and RSVP URL",
+                prompt="You are searching for AI events in the next few days. Ask for how many days in advance. Gather the events, make sure to include event title, location and RSVP URL, don't include status. Display the events in UI in a friendly format.",
                 model="sonnet",
                 tools=[
                     'Read',
@@ -178,22 +186,33 @@ def get_claude_options(model: str):
 
 async def process_message(user_input: str, model: str):
     """Process user message and get response from Claude."""
+    logger.info(f"Processing user input: {user_input[:100]}...")
     options = get_claude_options(model)
 
     async with ClaudeSDKClient(options=options) as client:
         await client.query(user_input)
+        logger.info("Query sent to Claude SDK")
 
         response_text = ""
         async for message in client.receive_response():
-            # Extract text content from the message
+            # Log the message activity to console
             if hasattr(message, 'content'):
                 if isinstance(message.content, list):
                     for content_block in message.content:
+                        # Log tool usage to console
+                        if hasattr(content_block, 'type') and content_block.type == 'tool_use':
+                            tool_name = getattr(content_block, 'name', 'unknown')
+                            tool_input = getattr(content_block, 'input', {})
+                            logger.info(f"🔧 Using tool: {tool_name}")
+                            logger.debug(f"Tool input: {tool_input}")
+
+                        # Extract text content
                         if hasattr(content_block, 'text'):
                             response_text += content_block.text
                 elif hasattr(message.content, 'text'):
                     response_text += message.content.text
 
+        logger.info(f"Response received, length: {len(response_text)} characters")
         return response_text
 
 
@@ -252,7 +271,7 @@ if prompt := st.chat_input("What can I help you with today?"):
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             try:
-                # Get response from Claude
+                # Get response from Claude (logging happens in console)
                 response = asyncio.run(process_message(prompt, st.session_state.model))
 
                 # Display response
@@ -262,5 +281,6 @@ if prompt := st.chat_input("What can I help you with today?"):
                 st.session_state.messages.append({"role": "assistant", "content": response})
             except Exception as e:
                 error_msg = f"Error: {str(e)}"
+                logger.error(f"Error processing message: {e}")
                 st.error(error_msg)
                 st.session_state.messages.append({"role": "assistant", "content": error_msg})
