@@ -126,6 +126,41 @@ def get_claude_options(model: str):
                     'WebSearch',
                     'WebFetch',
                 ]
+            ),
+            "events_agent": AgentDefinition(
+                description="You are gathering incoming AI events in bay area. Asking for the input of how many days you want to check, search for sources from https://luma.com/sf, Meetup, eventbrite, startupgrind, Y combinator, 500 startups, Andreessen Horowitz (a16z), Stanford Events, Berkeley Events, LinkedIn Events, Silicon Valley Forum, Galvanize, StrictlyVC, Bay Area Tech Events, cerebralvalley.ai/events , you must include RSVP URL.",
+                prompt="You are searching for AI events in the next few days. Ask for how many days in advance. Gather the events, make sure to include short description, location and RSVP URL",
+                model="sonnet",
+                tools=[
+                    'Read',
+                    'Write',
+                    'Edit',
+                    'MultiEdit',
+                    'Grep',
+                    'Glob',
+                    'TodoWrite',
+                    'mcp__Playwright__browser_close',
+                    'mcp__Playwright__browser_resize',
+                    'mcp__Playwright__browser_console_messages',
+                    'mcp__Playwright__browser_handle_dialog',
+                    'mcp__Playwright__browser_evaluate',
+                    'mcp__Playwright__browser_file_upload',
+                    'mcp__Playwright__browser_fill_form',
+                    'mcp__Playwright__browser_install',
+                    'mcp__Playwright__browser_press_key',
+                    'mcp__Playwright__browser_type',
+                    'mcp__Playwright__browser_navigate',
+                    'mcp__Playwright__browser_navigate_back',
+                    'mcp__Playwright__browser_network_requests',
+                    'mcp__Playwright__browser_take_screenshot',
+                    'mcp__Playwright__browser_snapshot',
+                    'mcp__Playwright__browser_click',
+                    'mcp__Playwright__browser_drag',
+                    'mcp__Playwright__browser_hover',
+                    'mcp__Playwright__browser_select_option',
+                    'mcp__Playwright__browser_tabs',
+                    'mcp__Playwright__browser_wait_for',
+                ]
             )
         },
         # Note: Playwright requires Node.js and Chrome to be installed!
@@ -181,6 +216,7 @@ with st.sidebar:
     - **youtube-analyst**: Analyzes YouTube channel performance
     - **researcher**: Performs deep research and generates reports
     - **documentation-writer**: Creates technical documentation
+    - **events_agent**: Gathers upcoming AI events in the Bay Area
     """)
 
     st.divider()
